@@ -1,6 +1,6 @@
 import { Component } from "react";
-import Producto from "./Producto"; 
-import PropTypes from 'prop-types';
+import Producto from "./Producto";
+import PropTypes from "prop-types";
 
 const style = {
   productos: {
@@ -16,7 +16,7 @@ class Productos extends Component {
     return (
       <div style={style.productos}>
         {productos.map((producto) => (
-          <Producto agregarAlCarro={agregarAlCarro} key={producto.name} producto={producto} />
+          <Producto key={producto.id} agregarAlCarro={agregarAlCarro} producto={producto} />
         ))}
       </div>
     );

@@ -1,48 +1,49 @@
-import { Component } from 'react'
-import Productos from './components/Productos.jsx'
-import Layout from './components/Layout.jsx'
-import Title from './components/Title.jsx'
-  import Navbar from './components/Navbar.jsx'
+import { Component } from "react";
+import Productos from "./components/Productos.jsx";
+import Layout from "./components/Layout.jsx";
+import Title from "./components/Title.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 class App extends Component {
-  state = {
-    productos: [
-      { name: "Tomate", price: 1500, img:'/productos/tomates.jpeg' },
-      { name: "Arvejas", price: 2000, img:'/productos/arbejas.jpeg' },
-      { name: "Lechuga", price: 500, img:'/productos/lechuga.jpeg' },
-    ],
-    carro: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      productos: [],
+      /* productos: [
+        { id: 1, name: "Tomate", price: 1500, img: "/productos/tomates.jpeg" },
+        { id: 2, name: "Arvejas", price: 2000, img: "/productos/arbejas.jpeg" },
+        { id: 3, name: "Lechuga", price: 500, img: "/productos/lechuga.jpeg" },
+      ], */
+      carro: [],
+    };
   }
 
-  
-  //Esta implementación de agregarAlCarro no estaría siguiendo el principio de inmutabilidad ya que
-  //estamos modificando directamente el valor de cantidad del producto en el array "carro" en el state
-  //de APP, lo cual provocaría por ejemplo, que React no se entere que tiene que volver a renderizar.
-  /*agregarAlCarro = (producto) => {
-    const { carro } = this.state;
-    const productoEncontrado = carro.find(x => x.name === producto.name);
-    //console.log(productoEncontrado);
-    if (productoEncontrado){
-      productoEncontrado.cantidad = productoEncontrado.cantidad + 1;
-      return;
+  async componentDidMount() {
+    try {
+      const productos = await this.getProductos();
+      console.log(productos);
+      this.setState({ productos: productos });
+    } catch (err) {
+      console.log("err");
     }
-    return this.setState({
-      carro:this.state.carro.concat({
-        ...producto,
-        cantidad: 1,
-      })
-    });
-  }*/
+  }
 
-
-
-//Esta es la implementación en el curso
-//En esta implementación, buscamos si ya existe el producto en el array carro con el método find.
-//Si existe, copiamos todos los productos del carro a un nuevo carro, menos el del producto
-//que estamos agregando, en su caso, creamos un nuevo objeto producto con la cantidad + 1
-//del producto anterior y lo agregamos al nuevo carro. Por ultimo, asignamos este nuevo carro
-//al estado de app con SetState(si es que ya existe en el array), 
-/*  agregarAlCarro = (producto) => {
+  getProductos = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/productos");
+      return await response.json();
+    } catch (err) {
+      console.log("Error al intentar obtener los datos.");
+      console.log(err);
+    }
+  };
+  //Esta es la implementación en el curso
+  //En esta implementación, buscamos si ya existe el producto en el array carro con el método find.
+  //Si existe, copiamos todos los productos del carro a un nuevo carro, menos el del producto
+  //que estamos agregando, en su caso, creamos un nuevo objeto producto con la cantidad + 1
+  //del producto anterior y lo agregamos al nuevo carro. Por ultimo, asignamos este nuevo carro
+  //al estado de app con SetState(si es que ya existe en el array),
+  /*  agregarAlCarro = (producto) => {
     const { carro } = this.state;
     if (carro.find(x => x.name === producto.name)){
       const newCarro = carro.map(x => x.name === producto.name
@@ -73,40 +74,36 @@ class App extends Component {
   agregarAlCarro = (producto) => {
     const { carro } = this.state;
     let encontre = false;
-    let newCarro = []
-    newCarro = carro.map(x => {
-      if(x.name === producto.name){
+    let newCarro = [];
+    newCarro = carro.map((x) => {
+      if (x.name === producto.name) {
         encontre = true;
-        const nuevoProducto = {...x, cantidad: x.cantidad + 1}
-        return nuevoProducto
-      }
-      else{
+        const nuevoProducto = { ...x, cantidad: x.cantidad + 1 };
+        return nuevoProducto;
+      } else {
         //console.log("Agrego al array producto existente")
         return x;
       }
-    })
+    });
     if (!encontre) {
-      const nuevoProducto = {...producto, cantidad: 1,}
-      newCarro = carro.concat(nuevoProducto)
+      const nuevoProducto = { ...producto, cantidad: 1 };
+      newCarro = carro.concat(nuevoProducto);
     }
-    this.setState({carro: newCarro});    
-  }
+    this.setState({ carro: newCarro });
+    //console.log(this);
+  };
 
-  render(){
-    console.log(this.state.carro)
-    return (    
+  render() {
+    return (
       <div>
         <Navbar carro={this.state.carro} />
         <Layout>
-        <Title />
-          <Productos 
-            agregarAlCarro={this.agregarAlCarro}
-            productos={this.state.productos}
-          />
+          <Title />
+          <Productos agregarAlCarro={this.agregarAlCarro} productos={this.state.productos} />
         </Layout>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
