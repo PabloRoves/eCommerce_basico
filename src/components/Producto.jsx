@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Button from "./Button";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const styles = {
   producto: {
@@ -17,7 +17,7 @@ const styles = {
 
 class Producto extends Component {
   render() {
-    const { producto, agregarAlCarro } = this.props;
+    const { producto, agregarAlCarro, quitarDelCarro } = this.props;
     //console.log(agregarAlCarro);
     //console.log(producto);
 
@@ -27,6 +27,7 @@ class Producto extends Component {
         <h3>{producto.name}</h3>
         <p>{producto.price}</p>
         <Button onClick={() => agregarAlCarro(producto)}>Agregar al carro</Button>
+        <Button onClick={() => quitarDelCarro(producto)}>Qutar del carro</Button>
       </div>
     );
   }
@@ -34,7 +35,8 @@ class Producto extends Component {
 
 Producto.propTypes = {
   producto: PropTypes.any.isRequired,
-  agregarAlCarro: PropTypes.any.isRequired,
+  agregarAlCarro: PropTypes.func.isRequired,
+  quitarDelCarro: PropTypes.func.isRequired,
 };
 
 export default Producto;

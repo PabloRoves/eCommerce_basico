@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Logo from "./Logo.jsx";
 import Carro from "./Carro.jsx";
+import PropTypes from "prop-types";
 
 const styles = {
   navbar: {
@@ -14,6 +15,7 @@ const styles = {
     boxShadow: "0 2px 3px rgb(0, 0, 0, 0.1)",
   },
 };
+
 class Navbar extends Component {
   render() {
     const { carro } = this.props;
@@ -25,5 +27,9 @@ class Navbar extends Component {
     );
   }
 }
+
+Navbar.propTypes = {
+  carro: PropTypes.any.isRequired,
+};
 
 export default Navbar;

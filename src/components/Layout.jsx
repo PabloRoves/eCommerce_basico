@@ -1,4 +1,5 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 
 const styles = {
   layout: {
@@ -12,6 +13,7 @@ const styles = {
     width: "1200px",
   },
 };
+
 class Layout extends Component {
   render() {
     return (
@@ -21,5 +23,9 @@ class Layout extends Component {
     );
   }
 }
+
+Layout.propTypes = {
+  children: PropTypes.any.isRequired,
+};
 
 export default Layout;

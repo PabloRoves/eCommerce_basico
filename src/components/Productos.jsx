@@ -12,11 +12,11 @@ const style = {
 
 class Productos extends Component {
   render() {
-    const { productos, agregarAlCarro } = this.props;
+    const { productos, agregarAlCarro, quitarDelCarro } = this.props;
     return (
       <div style={style.productos}>
         {productos.map((producto) => (
-          <Producto key={producto.name} agregarAlCarro={agregarAlCarro} producto={producto} />
+          <Producto key={producto.name} agregarAlCarro={agregarAlCarro} quitarDelCarro={quitarDelCarro} producto={producto} />
         ))}
       </div>
     );
@@ -25,7 +25,8 @@ class Productos extends Component {
 
 Productos.propTypes = {
   productos: PropTypes.any.isRequired,
-  agregarAlCarro: PropTypes.any.isRequired,
+  agregarAlCarro: PropTypes.func.isRequired,
+  quitarDelCarro: PropTypes.func.isRequired,
 };
 
 export default Productos;

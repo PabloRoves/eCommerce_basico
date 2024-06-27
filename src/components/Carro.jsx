@@ -1,7 +1,7 @@
 import { Component } from "react";
 import BubbleAlert from "./BubbleAlert.jsx";
 import DetallesCarro from "./DetallesCarro.jsx";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const styles = {
   carro: {
@@ -18,7 +18,6 @@ const styles = {
     top: 20,
   },
 };
-
 
 class Carro extends Component {
   state = {
@@ -37,7 +36,6 @@ class Carro extends Component {
           onClick={() => {
             //console.log(this.state.detalleCarro);
             if (cantidad !== 0) {
-              console.log(`muestro ${this.state.detalleCarro}`);
               this.setState({ detalleCarro: !this.state.detalleCarro });
             }
           }}

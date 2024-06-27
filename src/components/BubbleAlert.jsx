@@ -1,4 +1,5 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 
 const styles = {
   bubbleAlert: {
@@ -24,4 +25,9 @@ class BubbleAlert extends Component {
     return <span style={styles.bubbleAlert}>{this.getNumber(value)}</span>;
   }
 }
+
+BubbleAlert.propTypes = {
+  value: PropTypes.any.isRequired,
+};
+
 export default BubbleAlert;

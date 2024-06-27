@@ -21,7 +21,7 @@ class App extends Component {
   async componentDidMount() {
     try {
       const productos = await this.getProductos();
-      console.log(productos);
+      //console.log(productos);
       this.setState({ productos: productos });
     } catch (err) {
       console.log("err");
@@ -37,6 +37,7 @@ class App extends Component {
       console.log(err);
     }
   };
+
   agregarAlCarro = (producto) => {
     const { carro } = this.state;
     let encontre = false;
@@ -55,7 +56,25 @@ class App extends Component {
       newCarro = carro.concat(nuevoProducto);
     }
     this.setState({ carro: newCarro });
-    //console.log(this);
+  };
+
+  quitarDelCarro = (producto) => {
+    const { carro } = this.state;
+    if (carro == []) {
+      console.log("el carro esta vacio, no hago nada");
+      return;
+    }
+    let newCarro = [];
+
+    carro.forEach((p) => {
+      if (p.name !== producto.name) {
+        newCarro.push({ ...p });
+      } else if (p.name === producto.name && p.cantidad >= 2) {
+        const nuevoProducto = { ...p, cantidad: p.cantidad - 1 };
+        newCarro.push(nuevoProducto);
+      }
+    });
+    this.setState({ carro: newCarro });
   };
 
   render() {
@@ -64,7 +83,7 @@ class App extends Component {
         <Navbar carro={this.state.carro} />
         <Layout>
           <Title />
-          <Productos agregarAlCarro={this.agregarAlCarro} productos={this.state.productos} />
+          <Productos agregarAlCarro={this.agregarAlCarro} quitarDelCarro={this.quitarDelCarro} productos={this.state.productos} />
         </Layout>
       </div>
     );
