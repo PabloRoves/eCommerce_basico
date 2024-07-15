@@ -21,7 +21,7 @@ class App extends Component {
   async componentDidMount() {
     try {
       const productos = await this.getProductos();
-      //console.log(productos);
+      console.log(productos);
       this.setState({ productos: productos });
     } catch (err) {
       console.log("err");
@@ -30,7 +30,7 @@ class App extends Component {
 
   getProductos = async () => {
     try {
-      const response = await fetch("http://localhost:3000/productos");
+      const response = await fetch("http://localhost:3000/products");
       return await response.json();
     } catch (err) {
       console.log("Error al intentar obtener los datos.");
