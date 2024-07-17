@@ -3,7 +3,7 @@ import { Component } from "react";
 import DetallesMenu from "./DetallesMenu";
 import logo from "/Vector.svg";
 
-const styles = {
+/* const styles = {
   menu: {
     backgroundColor: "#359A2C",
     color: "#fff",
@@ -11,10 +11,8 @@ const styles = {
     padding: "15px",
     borderRadius: "15px",
     cursor: "pointer",
-    //    fontWeight: "700",
-    //    fontSize: "2rem",
   },
-};
+}; */
 
 class Menu extends Component {
   state = {
