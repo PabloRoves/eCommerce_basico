@@ -1,5 +1,4 @@
 import { Component } from "react";
-import Logo from "./Logo.jsx";
 import Menu from "./Menu.jsx";
 import Carro from "./Carro.jsx";
 import PropTypes from "prop-types";
