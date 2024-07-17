@@ -6,7 +6,9 @@ const style = {
   productos: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: "10px",
+    justifyContent: "flex-start",
   },
 };
 
@@ -24,7 +26,7 @@ class Productos extends Component {
 }
 
 Productos.propTypes = {
-  productos: PropTypes.any.isRequired,
+  productos: PropTypes.array.isRequired,
   agregarAlCarro: PropTypes.func.isRequired,
   quitarDelCarro: PropTypes.func.isRequired,
 };

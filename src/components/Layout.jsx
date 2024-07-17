@@ -10,15 +10,21 @@ const styles = {
     flexDirection: "column",
   },
   container: {
-    width: "1200px",
+    //width: "1200px",
+    width: "100%", // Use percentage width for responsiveness
+    maxWidth: "1200px", // Max width to maintain readability on larger screens
+    padding: "0 20px", // Added padding for better spacing
+    boxSizing: "border-box", // Ensures padding is included in the width
   },
 };
 
 class Layout extends Component {
   render() {
     return (
-      <div style={styles.layout}>
-        <div style={styles.container}>{this.props.children}</div>
+      <div className='Layout' style={styles.layout}>
+        <div className='containerLayout' style={styles.container}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

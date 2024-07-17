@@ -1,17 +1,16 @@
 import { Component } from "react";
-import PropTypes from "prop-types";
 
 const styles = {
-  detallesCarro: {
+  detallesMenu: {
     backgroundColor: "#fff",
     position: "absolute",
     marginTop: 30,
     boxShadow: "3px 3px 3px rgb(0,0,0,0.3)",
     borderRadius: "5px",
     width: "300px",
-    right: 0,
+    left: 0,
   },
-  producto: {
+  menuItem: {
     listStyleType: "none",
     display: "flex",
     justifyContent: "space-between",
@@ -25,26 +24,24 @@ const styles = {
   },
 };
 
-class DetallesCarro extends Component {
+class DetallesMenu extends Component {
   render() {
-    const { carro } = this.props;
     return (
-      <div style={styles.detallesCarro}>
+      <div style={styles.detallesMenu}>
         <ul style={styles.ul}>
-          {carro.map((x) => (
-            <li style={styles.producto} key={x.name}>
-              <img alt={x.name} src={x.img} width='50' height='30' />
-              {x.name} <span>{x.cantidad}</span>
-            </li>
-          ))}
+          <li style={styles.menuItem} key='1'>
+            primer item
+          </li>
+          <li style={styles.menuItem} key='2'>
+            segundo item
+          </li>
+          <li style={styles.menuItem} key='3'>
+            tercer item
+          </li>
         </ul>
       </div>
     );
   }
 }
 
-DetallesCarro.propTypes = {
-  carro: PropTypes.any.isRequired,
-};
-
-export default DetallesCarro;
+export default DetallesMenu;

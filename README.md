@@ -1,15 +1,43 @@
-# eCommerce Básico
+# eCommerce Basic
 
-Aplicación web de eCommerce desarrollada en React con funcionalidades básicas.
+This eCommerce project is built using React and aims to provide a basic shopping experience. It includes features like adding products to a cart, viewing cart details, and fetching product data from a server.
 
-### Productos
+## Installation and Setup
 
-- Los productos ya se encuentran precargados en el sistema, los cuales tienen nombre, precio y una imagen.
-- Los productos son obtenidos a través de un endpoint implementado con API REST utilizando Node.JS, Express.JS y MongoDB.
+Clone the repository
 
-### Funcionalidades implementadas
+```bash
+git clone https://github.com/PabloRoves/ecommerce-basic
+cd ecommerce-basic
+```
 
-- Agregar productos al carro
-- Quitar productos del carro
-- Listar productos en el carro
-- Burbuja de notificación de cantidad de productos en el carro (1 a 9+)
+Install dependencies using npm:
+
+```bash
+npm install
+```
+
+## Usage
+
+To start the development server and view the eCommerce application in your browser, run:
+
+```bash
+npm run dev
+```
+
+The application will typically be accessible at http://localhost:3000.
+
+## Features
+
+- **Product Management:** Fetches and displays products from a server.
+- **Shopping Cart:** Allows users to add and remove items from their cart.
+- **Dynamic UI:** Updates product quantities and cart details dynamically.
+- **Responsive Design:** Ensures usability across different screen sizes.
+
+## Contributing
+
+We welcome contributions to improve this project! Please create pull requests on GitHub.
+
+## License
+
+This project is licensed under the MIT License.
