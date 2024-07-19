@@ -3,6 +3,14 @@ import Productos from "./components/Productos.jsx";
 import Layout from "./components/Layout.jsx";
 import Title from "./components/Title.jsx";
 import Navbar from "./components/Navbar.jsx";
+import NuevoProducto from "./components/NuevoProducto.jsx";
+
+const styles = {
+  appContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
+};
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +23,8 @@ class App extends Component {
         { id: 3, name: "Lechuga", price: 500, img: "/productos/lechuga.jpeg" },
       ], */
       carro: [],
+      imgData: null,
+      imgName: "",
     };
   }
 
@@ -77,14 +87,39 @@ class App extends Component {
     this.setState({ carro: newCarro });
   };
 
+  nuevoProducto = () => {
+    const { imgData, imgName } = this.state;
+  };
+
+  loadImage(img) {
+    const name = this.removeExtension(img.name);
+    this.setState({ imgName: name });
+
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(img);
+    fileReader.onloadend = () => {
+      this.setState({ imgData: fileReader.result }, () => {});
+    };
+  }
+  removeExtension(imgName) {
+    return imgName.substr(0, imgName.length - 5);
+  }
+
+  getExtension(imgName) {
+    return imgName.substr(imgName.length - 5);
+  }
+
   render() {
     return (
-      <div>
-        <Navbar carro={this.state.carro} />
-        <Layout>
-          <Title />
-          <Productos agregarAlCarro={this.agregarAlCarro} quitarDelCarro={this.quitarDelCarro} productos={this.state.productos} />
-        </Layout>
+      <div className='appCont' style={styles.appContainer}>
+        <div>
+          <Navbar carro={this.state.carro} />
+          <Layout>
+            <Title />
+            <Productos agregarAlCarro={this.agregarAlCarro} quitarDelCarro={this.quitarDelCarro} productos={this.state.productos} />
+          </Layout>
+          <NuevoProducto />
+        </div>
       </div>
     );
   }

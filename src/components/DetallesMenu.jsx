@@ -9,35 +9,58 @@ const styles = {
     borderRadius: "5px",
     width: "300px",
     left: 0,
+    overflow: "hidden",
   },
-  menuItem: {
+  ul: {
+    margin: 0,
+    padding: 0,
+  },
+  menuItem: (isHovered) => ({
     listStyleType: "none",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     padding: "25px 20px",
     borderBottom: "solid 1px #aaaa",
-  },
-  ul: {
-    margin: 0,
-    padding: 0,
-  },
+    cursor: "pointer",
+    backgroundColor: isHovered ? "#359a2c" : "white",
+  }),
 };
 
 class DetallesMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hoverStates: {
+        1: false,
+        2: false,
+        3: false,
+      },
+    };
+  }
+
   render() {
     return (
       <div style={styles.detallesMenu}>
         <ul style={styles.ul}>
-          <li style={styles.menuItem} key='1'>
-            primer item
-          </li>
-          <li style={styles.menuItem} key='2'>
-            segundo item
-          </li>
-          <li style={styles.menuItem} key='3'>
-            tercer item
-          </li>
+          {["Listar productos", "Nuevo producto", "Eliminar producto"].map((item, index) => (
+            <li
+              onMouseEnter={() =>
+                this.setState((prevState) => ({
+                  hoverStates: { ...prevState.hoverStates, [index + 1]: true },
+                }))
+              }
+              onMouseLeave={() =>
+                this.setState((prevState) => ({
+                  hoverStates: { ...prevState.hoverStates, [index + 1]: false },
+                }))
+              }
+              style={styles.menuItem(this.state.hoverStates[index + 1])}
+              key={index + 1}
+            >
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
     );

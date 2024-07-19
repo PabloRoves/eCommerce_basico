@@ -3,12 +3,16 @@ import Producto from "./Producto";
 import PropTypes from "prop-types";
 
 const style = {
+  productosContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
   productos: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     gap: "10px",
-    justifyContent: "flex-start",
+    justifyContent: "flex-center",
   },
 };
 
@@ -16,10 +20,12 @@ class Productos extends Component {
   render() {
     const { productos, agregarAlCarro, quitarDelCarro } = this.props;
     return (
-      <div style={style.productos}>
-        {productos.map((producto) => (
-          <Producto key={producto.name} agregarAlCarro={agregarAlCarro} quitarDelCarro={quitarDelCarro} producto={producto} />
-        ))}
+      <div style={StyleSheet.productosContainer}>
+        <div style={style.productos}>
+          {productos.map((producto) => (
+            <Producto key={producto.name} agregarAlCarro={agregarAlCarro} quitarDelCarro={quitarDelCarro} producto={producto} />
+          ))}
+        </div>
       </div>
     );
   }
