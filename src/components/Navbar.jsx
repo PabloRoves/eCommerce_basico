@@ -26,11 +26,12 @@ const styles = {
 
 class Navbar extends Component {
   render() {
-    const { carro } = this.props;
+    const { carro, onEliminarClick } = this.props;
     return (
       <div className='navContainer' style={styles.navContainer}>
         <nav style={styles.navbar}>
           <Menu />
+          <button onClick={onEliminarClick}>Eliminar Producto</button>
           <Carro carro={carro} muestro={false} />
         </nav>
       </div>
@@ -40,6 +41,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   carro: PropTypes.any.isRequired,
+  onEliminarClick: PropTypes.any.isRequired,
 };
 
 export default Navbar;

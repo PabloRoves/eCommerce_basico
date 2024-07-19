@@ -4,6 +4,7 @@ import Layout from "./components/Layout.jsx";
 import Title from "./components/Title.jsx";
 import Navbar from "./components/Navbar.jsx";
 import NuevoProducto from "./components/NuevoProducto.jsx";
+import EliminarProducto from "./components/EliminarProducto.jsx";
 
 const styles = {
   appContainer: {
@@ -25,6 +26,7 @@ class App extends Component {
       carro: [],
       imgData: null,
       imgName: "",
+      showEliminarModal: false,
     };
   }
 
@@ -37,6 +39,10 @@ class App extends Component {
       console.log("err");
     }
   }
+
+  toggleEliminarModal = () => {
+    this.setState((prevState) => ({ showEliminarModal: !prevState.showEliminarModal }));
+  };
 
   getProductos = async () => {
     try {
@@ -109,16 +115,35 @@ class App extends Component {
     return imgName.substr(imgName.length - 5);
   }
 
+  eliminarProducto = async (productoId) => {
+    try {
+      console.log("elimino");
+      /*
+      await fetch(`http://localhost:3000/products/${productoId}`, {
+        method: "DELETE",
+      });
+      const updatedProductos = this.state.productos.filter((p) => p.id !== productoId);
+      this.setState({
+        productos: updatedProductos,
+        showEliminarModal: false,*
+      });*/
+    } catch (err) {
+      console.log("Error al intentar eliminar el producto.");
+      console.log(err);
+    }
+  };
+
   render() {
     return (
       <div className='appCont' style={styles.appContainer}>
         <div>
-          <Navbar carro={this.state.carro} />
+          <Navbar carro={this.state.carro} onEliminarClick={this.toggleEliminarModal} />
           <Layout>
             <Title />
             <Productos agregarAlCarro={this.agregarAlCarro} quitarDelCarro={this.quitarDelCarro} productos={this.state.productos} />
           </Layout>
           <NuevoProducto />
+          {this.state.showEliminarModal && <EliminarProducto productos={this.state.productos} onEliminar={this.eliminarProducto} onClose={this.toggleEliminarModal} />}
         </div>
       </div>
     );
