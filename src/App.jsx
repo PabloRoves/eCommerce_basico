@@ -20,7 +20,7 @@ class App extends Component {
       productos: [],
       /* productos: [
         { id: 1, name: "Tomate", price: 1500, img: "/productos/tomates.jpeg" },
-        { id: 2, name: "Arvejas", price: 2000, img: "/productos/arbejas.jpeg" },
+        { id: 2, name: "Arvejas", price: 2000, img: "/productos/arvejas.jpeg" },
         { id: 3, name: "Lechuga", price: 500, img: "/productos/lechuga.jpeg" },
       ], */
       carro: [],

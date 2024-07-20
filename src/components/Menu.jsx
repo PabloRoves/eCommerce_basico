@@ -1,7 +1,7 @@
 import { Component } from "react";
 //import DetallesCarro from "./DetallesCarro.jsx";
 import DetallesMenu from "./DetallesMenu";
-import logo from "/Vector.svg";
+import menu from "/menu.svg";
 
 /* const styles = {
   menu: {
@@ -16,7 +16,7 @@ import logo from "/Vector.svg";
 
 class Menu extends Component {
   state = {
-    muestro: false,
+    visible: false,
   };
 
   render() {
@@ -25,12 +25,12 @@ class Menu extends Component {
         <div
           className='menu-trigger'
           onClick={() => {
-            this.setState({ muestro: !this.state.muestro });
+            this.setState({ visible: !this.state.visible });
           }}
         >
-          <img src={logo} alt='menu-image' />
+          <img src={menu} alt='menu-image' />
         </div>
-        {this.state.muestro == true ? <DetallesMenu /> : null}
+        {this.state.visible == true ? <DetallesMenu /> : null}
       </div>
     );
   }
