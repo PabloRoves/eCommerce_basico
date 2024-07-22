@@ -1,6 +1,6 @@
 # eCommerce Basic
 
-This eCommerce project is built using React and aims to provide a basic shopping experience. It includes features like adding products to a cart, viewing cart details, and fetching product data from a server.
+This eCommerce project is built using React and aims to provide a basic shopping experience. It includes features like managing products, shopping cart functionality, and fetching product data from a server.
 
 ## Installation and Setup
 
@@ -29,7 +29,7 @@ The application will typically be accessible at http://localhost:3000.
 
 ## Features
 
-- **Product Management:** Fetches and displays products from a server.
+- **Product Management:**Fetches and displays products from a server. "Delete product" modal for easy deletion, and a "Create product" modal for adding new products with name, price, and image (JPEG only).
 - **Shopping Cart:** Allows users to add and remove items from their cart.
 - **Dynamic UI:** Updates product quantities and cart details dynamically.
 - **Responsive Design:** Ensures usability across different screen sizes.
