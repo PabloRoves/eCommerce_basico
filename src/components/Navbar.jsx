@@ -5,11 +5,10 @@ import PropTypes from "prop-types";
 
 const styles = {
   navContainer: {
-    //width: "1200px",
-    width: "100%", // Use percentage width for responsiveness
-    maxWidth: "1200px", // Max width to maintain readability on larger screens
-    padding: "0 20px", // Added padding for better spacing
-    boxSizing: "border-box", // Ensures padding is included in the width
+    width: "100%",
+    maxWidth: "1200px",
+    padding: "0 20px",
+    boxSizing: "border-box",
   },
   navbar: {
     display: "flex",
@@ -17,7 +16,7 @@ const styles = {
     alignItems: "center",
     heigh: "100px",
     justifyContent: "space-between",
-    position: "relative", //esta propiedad la necesitaremos más adelante para poder mostrar el carro de compras y que el mismo se necuentre relativo al navbar
+    position: "relative",
     padding: "5px 20px",
     boxShadow: "0 2px 3px rgb(0, 0, 0, 0.1)",
     borderRadius: "5px",
@@ -26,12 +25,11 @@ const styles = {
 
 class Navbar extends Component {
   render() {
-    const { carro, onEliminarClick } = this.props;
+    const { carro, onEliminarClick, onNewProductClick } = this.props;
     return (
       <div className='navContainer' style={styles.navContainer}>
         <nav style={styles.navbar}>
-          <Menu />
-          <button onClick={onEliminarClick}>Eliminar Producto</button>
+          <Menu onEliminarClick={onEliminarClick} onNewProductClick={onNewProductClick} />
           <Carro carro={carro} muestro={false} />
         </nav>
       </div>
@@ -39,9 +37,11 @@ class Navbar extends Component {
   }
 }
 
+//<button onClick={onEliminarClick}>Eliminar Producto</button>
 Navbar.propTypes = {
   carro: PropTypes.any.isRequired,
   onEliminarClick: PropTypes.any.isRequired,
+  onNewProductClick: PropTypes.any.isRequired,
 };
 
 export default Navbar;

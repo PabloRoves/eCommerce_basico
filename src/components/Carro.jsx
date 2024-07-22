@@ -27,14 +27,12 @@ class Carro extends Component {
   render() {
     const { carro } = this.props;
     const cantidad = carro.reduce((acumulado, producto) => acumulado + producto.cantidad, 0);
-    //console.log(cantidad);
     return (
       <div>
         <span style={styles.bubble}>{cantidad !== 0 ? <BubbleAlert value={cantidad} /> : null}</span>
         <button
           style={styles.carro}
           onClick={() => {
-            //console.log(this.state.detalleCarro);
             if (cantidad !== 0) {
               this.setState({ detalleCarro: !this.state.detalleCarro });
             }

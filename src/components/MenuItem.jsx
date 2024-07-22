@@ -1,26 +1,35 @@
 import { Component } from "react";
-import PropTypes from "prop-types";
 
 const styles = {
-  menuItem: {
+  menuItem: (isHovered) => ({
     listStyleType: "none",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     padding: "25px 20px",
     borderBottom: "solid 1px #aaaa",
-  },
+    cursor: "pointer",
+    backgroundColor: isHovered ? "#359a2c" : "white",
+  }),
 };
 
 class MenuItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hovered: false,
+    };
+  }
+
   render() {
-    //const { menu } = this.props;
-    return <li style={styles.menuItem} key={this.props.text}></li>;
+    // prettier-ignore
+    return <li 
+      {...this.props} 
+      onMouseEnter={() => this.setState({ hovered: true })} 
+      onMouseLeave={() => this.setState({ hovered: false })} 
+      style={styles.menuItem(this.state.hovered)}>
+    </li>;
   }
 }
-
-MenuItem.propTypes = {
-  text: PropTypes.text.isRequired,
-};
 
 export default MenuItem;

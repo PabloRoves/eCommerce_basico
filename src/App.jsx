@@ -3,8 +3,8 @@ import Productos from "./components/Productos.jsx";
 import Layout from "./components/Layout.jsx";
 import Title from "./components/Title.jsx";
 import Navbar from "./components/Navbar.jsx";
-import NuevoProducto from "./components/NuevoProducto.jsx";
-import EliminarProducto from "./components/EliminarProducto.jsx";
+import NewProduct from "./components/NewProduct.jsx";
+import EliminarProducto from "./components/DeleteProduct.jsx";
 
 const styles = {
   appContainer: {
@@ -27,6 +27,7 @@ class App extends Component {
       imgData: null,
       imgName: "",
       showEliminarModal: false,
+      showNewProductModal: false,
     };
   }
 
@@ -40,8 +41,32 @@ class App extends Component {
     }
   }
 
+  //onEliminarClick = () => {};
+
   toggleEliminarModal = () => {
     this.setState((prevState) => ({ showEliminarModal: !prevState.showEliminarModal }));
+  };
+  toggleNewProductModal = () => {
+    this.setState((prevState) => ({ showNewProductModal: !prevState.showNewProductModal }));
+  };
+
+  eliminarProducto = async (productoId) => {
+    try {
+      console.log("elimino" + productoId);
+
+      await fetch(`http://localhost:3000/products/${productoId}`, {
+        method: "DELETE",
+      });
+      const updatedProductos = this.state.productos.filter((p) => p.id !== productoId);
+      this.setState({
+        productos: updatedProductos,
+        showEliminarModal: false,
+      });
+      console.log("producto eliminado ok");
+    } catch (err) {
+      console.log("Error al intentar eliminar el producto.");
+      console.log(err);
+    }
   };
 
   getProductos = async () => {
@@ -59,17 +84,17 @@ class App extends Component {
     let encontre = false;
     let newCarro = [];
     newCarro = carro.map((x) => {
-      if (x.name === producto.name) {
+      if (x.id === producto.id) {
         encontre = true;
-        const nuevoProducto = { ...x, cantidad: x.cantidad + 1 };
-        return nuevoProducto;
+        const p = { ...x, cantidad: x.cantidad + 1 };
+        return p;
       } else {
         return x;
       }
     });
     if (!encontre) {
-      const nuevoProducto = { ...producto, cantidad: 1 };
-      newCarro = carro.concat(nuevoProducto);
+      const p = { ...producto, cantidad: 1 };
+      newCarro = carro.concat(p);
     }
     this.setState({ carro: newCarro });
   };
@@ -83,67 +108,46 @@ class App extends Component {
     let newCarro = [];
 
     carro.forEach((p) => {
-      if (p.name !== producto.name) {
+      if (p.id !== producto.id) {
         newCarro.push({ ...p });
-      } else if (p.name === producto.name && p.cantidad >= 2) {
-        const nuevoProducto = { ...p, cantidad: p.cantidad - 1 };
-        newCarro.push(nuevoProducto);
+      } else if (p.id === producto.id && p.cantidad >= 2) {
+        const pAux = { ...p, cantidad: p.cantidad - 1 };
+        newCarro.push(pAux);
       }
     });
     this.setState({ carro: newCarro });
   };
 
-  nuevoProducto = () => {
-    const { imgData, imgName } = this.state;
-  };
-
-  loadImage(img) {
-    const name = this.removeExtension(img.name);
-    this.setState({ imgName: name });
-
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(img);
-    fileReader.onloadend = () => {
-      this.setState({ imgData: fileReader.result }, () => {});
-    };
-  }
-  removeExtension(imgName) {
-    return imgName.substr(0, imgName.length - 5);
-  }
-
-  getExtension(imgName) {
-    return imgName.substr(imgName.length - 5);
-  }
-
-  eliminarProducto = async (productoId) => {
+  /*async crear(producto) {
     try {
-      console.log("elimino");
-      /*
-      await fetch(`http://localhost:3000/products/${productoId}`, {
-        method: "DELETE",
+      console.log("Enviando datos al servidor...");
+      const respuesta = await fetch("http://localhost:3000/products", {
+        method: "POST",
+        body: JSON.stringify(producto),
       });
-      const updatedProductos = this.state.productos.filter((p) => p.id !== productoId);
-      this.setState({
-        productos: updatedProductos,
-        showEliminarModal: false,*
-      });*/
+      console.log("Producto creado correctamente.");
+      //console.log(respuesta);
     } catch (err) {
-      console.log("Error al intentar eliminar el producto.");
-      console.log(err);
+      console.log("Error al intentar crear un producto.");
+      throw err;
     }
-  };
+  }*/
+
+  /*   nuevoProducto = () => {
+    const { imgData, imgName } = this.state;
+  }; */
 
   render() {
     return (
       <div className='appCont' style={styles.appContainer}>
         <div>
-          <Navbar carro={this.state.carro} onEliminarClick={this.toggleEliminarModal} />
+          <Navbar carro={this.state.carro} onEliminarClick={this.toggleEliminarModal} onNewProductClick={this.toggleNewProductModal} />
           <Layout>
             <Title />
             <Productos agregarAlCarro={this.agregarAlCarro} quitarDelCarro={this.quitarDelCarro} productos={this.state.productos} />
           </Layout>
-          <NuevoProducto />
-          {this.state.showEliminarModal && <EliminarProducto productos={this.state.productos} onEliminar={this.eliminarProducto} onClose={this.toggleEliminarModal} />}
+          {this.state.showEliminarModal && <EliminarProducto productos={this.state.productos} onDelete={this.eliminarProducto} onClose={this.toggleEliminarModal} />}
+          {this.state.showNewProductModal && <NewProduct onClose={this.toggleNewProductModal} />}
         </div>
       </div>
     );

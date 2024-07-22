@@ -1,4 +1,6 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
+import MenuItem from "./MenuItem";
 
 const styles = {
   detallesMenu: {
@@ -15,56 +17,49 @@ const styles = {
     margin: 0,
     padding: 0,
   },
-  menuItem: (isHovered) => ({
-    listStyleType: "none",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "25px 20px",
-    borderBottom: "solid 1px #aaaa",
-    cursor: "pointer",
-    backgroundColor: isHovered ? "#359a2c" : "white",
-  }),
 };
 
 class DetallesMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      hoverStates: {
-        1: false,
-        2: false,
-        3: false,
-      },
-    };
   }
 
   render() {
+    const { onEliminarClick, onNewProductClick, toggleVisibility } = this.props;
     return (
-      <div style={styles.detallesMenu}>
-        <ul style={styles.ul}>
-          {["Listar productos", "Nuevo producto", "Eliminar producto"].map((item, index) => (
-            <li
-              onMouseEnter={() =>
-                this.setState((prevState) => ({
-                  hoverStates: { ...prevState.hoverStates, [index + 1]: true },
-                }))
-              }
-              onMouseLeave={() =>
-                this.setState((prevState) => ({
-                  hoverStates: { ...prevState.hoverStates, [index + 1]: false },
-                }))
-              }
-              style={styles.menuItem(this.state.hoverStates[index + 1])}
-              key={index + 1}
-            >
-              {item}
-            </li>
-          ))}
+      <div style={styles.detallesMenu} onMouseLeave={() => toggleVisibility()}>
+        <ul
+          style={styles.ul}
+          onClick={() => {
+            toggleVisibility();
+          }}
+        >
+          <MenuItem
+            key='1'
+            onClick={() => {
+              onNewProductClick();
+            }}
+          >
+            Nuevo productos
+          </MenuItem>
+          <MenuItem
+            key='2'
+            onClick={() => {
+              onEliminarClick();
+            }}
+          >
+            Eliminar productos
+          </MenuItem>
         </ul>
       </div>
     );
   }
 }
+
+DetallesMenu.propTypes = {
+  onEliminarClick: PropTypes.func.isRequired,
+  onNewProductClick: PropTypes.func.isRequired,
+  toggleVisibility: PropTypes.func.isRequired,
+};
 
 export default DetallesMenu;

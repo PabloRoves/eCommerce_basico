@@ -23,7 +23,7 @@ class Productos extends Component {
       <div style={StyleSheet.productosContainer}>
         <div style={style.productos}>
           {productos.map((producto) => (
-            <Producto key={producto.name} agregarAlCarro={agregarAlCarro} quitarDelCarro={quitarDelCarro} producto={producto} />
+            <Producto key={producto.id} agregarAlCarro={agregarAlCarro} quitarDelCarro={quitarDelCarro} producto={producto} />
           ))}
         </div>
       </div>

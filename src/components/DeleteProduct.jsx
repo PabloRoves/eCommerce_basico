@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-class EliminarProducto extends Component {
+class DeleteProduct extends Component {
   state = {
     selectedProduct: "",
   };
@@ -38,9 +38,9 @@ class EliminarProducto extends Component {
     this.setState({ selectedProduct: e.target.value });
   };
 
-  handleEliminar = () => {
+  handleDelete = () => {
     if (this.state.selectedProduct) {
-      this.props.onEliminar(this.state.selectedProduct);
+      this.props.onDelete(this.state.selectedProduct);
     }
   };
 
@@ -50,29 +50,29 @@ class EliminarProducto extends Component {
     return (
       <div style={styles.modal}>
         <div style={styles.modalContent}>
-          <h2>Eliminar Producto</h2>
+          <h2>Delete product</h2>
           <select style={styles.select} value={this.state.selectedProduct} onChange={this.handleSelectChange}>
-            <option value=''>Seleccione un producto</option>
-            {productos.map((producto) => (
-              <option key={producto.id} value={producto.id}>
-                {producto.name}
+            <option value=''>Select a product</option>
+            {productos.map((product) => (
+              <option key={product.id} value={product.id}>
+                {product.name}
               </option>
             ))}
           </select>
-          <button style={styles.button} onClick={this.handleEliminar}>
-            Eliminar
+          <button style={styles.button} onClick={this.handleDelete}>
+            Delete
           </button>
-          <button onClick={onClose}>Cancelar</button>
+          <button onClick={onClose}>Cancel</button>
         </div>
       </div>
     );
   }
 }
 
-EliminarProducto.propTypes = {
-  onEliminar: PropTypes.any.isRequired,
+DeleteProduct.propTypes = {
+  onDelete: PropTypes.func.isRequired,
   productos: PropTypes.array.isRequired,
-  onClose: PropTypes.any.isRequred,
+  onClose: PropTypes.func.isRequired,
 };
 
-export default EliminarProducto;
+export default DeleteProduct;
